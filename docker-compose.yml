@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  grpc-core:
+    image: baristi000/rss-core:0.0.1
+    volumes:
+      - "/home/tst/Desktop/grpc-core/search/data:/app/search/data"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 9090:9090
+    networks:
+      - grpc
+
+  envoy:
+    image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
+    volumes:
+      - "/home/tst/Desktop/grpc-core/envoy/envoy.yaml:/etc/envoy/envoy.yaml"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9901:9901"
+      - "8081:8080"
+    networks:
+      - grpc
+
+  redis:
+    image: bitnami/redis
+    volumes:
+      - "/home/tst/Desktop/grpc-core/envoy/data:/bitnami/redis/data"
+    deploy:
+      restart_policy:
+        condition: on-failure
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+      - grpc
+
+networks:
+  grpc:
+    driver: overlay

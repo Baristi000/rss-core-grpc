@@ -1,0 +1,12 @@
+env
+__pycache__/**
+**/__pycache__/
+
+.DS_Store
+.vscode
+
+*.index
+
+use/model/use_v4
+
+

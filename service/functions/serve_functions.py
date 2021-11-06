@@ -3,9 +3,11 @@ import json
 from search import faiss
 from protobuf import serve_pb2, train_pb2
 from elastic_search import es_services as es
+from fake_news_module.fake_news_services import predict
 
 
 def create_response(status, message, raw_datas):
+    predict_result = predict(message)
     status_data = train_pb2.StatusCode(status=status, message=message)
     input_datas = []
     for data in raw_datas:
@@ -20,7 +22,11 @@ def create_response(status, message, raw_datas):
         )
         input_datas.append(item)
     input_data = train_pb2.InputData(block=input_datas)
-    return serve_pb2.SearchResult(statuscode=status_data, data=input_data)
+    search_body = train_pb2.SearchBody(
+        data=input_data, 
+        percent=predict_result["data"]["percent"], 
+        status=predict_result["data"]["status"])
+    return serve_pb2.SearchResult(statuscode=status_data, body=search_body)
 
 
 def search(query, result_numbers):

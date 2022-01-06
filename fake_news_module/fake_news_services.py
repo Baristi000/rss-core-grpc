@@ -14,7 +14,7 @@ def feed_data(data:list):
         print("\tServer error")
 
 def predict(sentence: str):
-    data = {"message": sentence}
+    data = {"sentence": sentence}
     url = settings.fake_news_base_url + "/FakenewsDetection/predict"
     try:
         res = perform_post(url, data)

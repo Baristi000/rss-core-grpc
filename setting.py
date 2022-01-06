@@ -17,9 +17,9 @@ class Setting():
         except:
             self.faiss_index = faiss.IndexFlatL2(self.FEATURE_SIZE)
             print("No index file found")
-        self.index = "covid1"
-        self.es = Elasticsearch("http://tstsv.ddns.net:80")
-        self.fake_news_base_url = "http://api-tstsv.ddns.net:8001"
+        self.index = "news"
+        self.es = Elasticsearch("http://elastic-tt.ddns.net:80")
+        self.fake_news_base_url = "http://ai.ttst.asia:8001"
 
 
 settings = Setting()

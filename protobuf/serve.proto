@@ -8,7 +8,7 @@ message Data {
 }
 
 message SearchBody {
-    InputData data = 1;
+    InputData datas = 1;
     float percent = 2;
     bool status = 3;
 }

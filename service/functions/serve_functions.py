@@ -38,5 +38,4 @@ def search(query, result_numbers):
     data = []
     for index in indexs:
         data.append(es.GetData(index))
-    res = create_response(200, query, data)
-    return res
+    return create_response(200, query, data)
